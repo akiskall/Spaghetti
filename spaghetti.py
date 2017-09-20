@@ -35,6 +35,7 @@ class Spaghetti(object):
 		timeout = None
 		cookie = None
 		proxy = None
+		default_scan = "5"
 		# args...
 		if len(sys.argv) < 2:
 			self.ban.usage(True)
@@ -81,6 +82,12 @@ class Spaghetti(object):
 		#
 		if urls == None or urls == []: urls == []; urls.append(self.url)
 		#
+
+		#Check if --scan is set or else set default value
+		if not hasattr(self, "scan"):
+			self.scan = default_scan
+			self.output.info('Argument --scan is not defined. Setting to default value %s'%default_scan)
+
 		if self.scan == "0":
 			self.broken(
 				agent,proxy,redirect,timeout,self.url,cookie
